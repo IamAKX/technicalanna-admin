@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Technical Anna Admin</string>
+    <string name="title_activity_exam_notification_banner">Exam Notification Banner</string>
+    <string name="title_activity_toppers_tip">Topper\'s Tip</string>
+</resources>

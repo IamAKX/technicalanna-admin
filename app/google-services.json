@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "504832530577",
+    "firebase_url": "https://technical-anna.firebaseio.com",
+    "project_id": "technical-anna",
+    "storage_bucket": "technical-anna.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504832530577:android:92b6a87daf177644",
+        "android_client_info": {
+          "package_name": "com.akashapplications.technicalannaadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504832530577-tsrcu8m11g5f195b1oksdprepdjl10mr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.akashapplications.technicalannaadmin",
+            "certificate_hash": "e07ed28b872b378629e5dfc83b9c75cd1c0d73d6"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB97Deb2utfXSTpZD5uvcMvKOwrGtcmsRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504832530577-oqmtr17j05cp9ljca5li6utb4rvd21k9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

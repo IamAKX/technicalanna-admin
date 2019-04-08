@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainMenu.ExamNotificationBanner"
+    tools:showIn="@layout/activity_exam_notification_banner">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardBackgroundColor="#ffffff">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current Value"
+                        android:layout_margin="10dp"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/sub_heading_size"/>
+
+                    <TextView
+                        android:id="@+id/marqueeExamNotification"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:padding="5dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text=""
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="#3949AB"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Exam Notification Text"
+                app:met_helperText="Scrolling Text that will be appeared in exam notification area"
+                app:met_clearButton="true"
+                android:textSize="15sp"
+                android:imeOptions="actionNext"
+                app:met_helperTextAlwaysShown="true"
+                app:met_floatingLabelAnimating="true"
+                app:met_floatingLabel="normal"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/link"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Exam Notification Link"
+                app:met_helperText="Link where user will redirected to after tapping on notification"
+                app:met_clearButton="true"
+                android:textSize="15sp"
+                android:inputType="textUri"
+                app:met_helperTextAlwaysShown="true"
+                app:met_floatingLabelAnimating="true"
+                app:met_floatingLabel="normal"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
