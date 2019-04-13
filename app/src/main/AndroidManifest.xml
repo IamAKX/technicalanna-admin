@@ -4,6 +4,7 @@
     package="com.akashapplications.technicalannaadmin">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".GlobalConfig"
         android:allowBackup="true"
@@ -13,7 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainMenu.Booster.AddBooster"></activity>
+        <activity android:name=".MainMenu.SubjectExam.AddSubjectExam"></activity>
+        <activity
+            android:name=".MainMenu.SubjectExam.SubjectExam"
+            android:label="@string/title_activity_subject_exam"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainMenu.Booster.AddBooster" />
 
         <uses-library
             android:name="org.apache.http.legacy"
