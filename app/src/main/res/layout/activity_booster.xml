@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainMenu.ToppersTip.ToppersTip">
+    tools:context=".MainMenu.Booster.Booster">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_toppers_tip" />
+    <include layout="@layout/content_booster" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -30,6 +30,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="@color/colorPrimaryDark"
         android:tint="#fff"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"  />
 
 </android.support.design.widget.CoordinatorLayout>

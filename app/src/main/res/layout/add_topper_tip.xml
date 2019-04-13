@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Banner Link"
+        app:met_helperText="Image link of banner"
+        android:textSize="15sp"
+        android:imeOptions="actionNext"
+        app:met_helperTextAlwaysShown="true"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabel="normal"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Topper's tip"
+        android:singleLine="false"
+        android:inputType="textMultiLine"
+        app:met_helperText="Text will display below banner"
+        android:textSize="15sp"
+        android:imeOptions="actionNext"
+        app:met_helperTextAlwaysShown="true"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabel="normal"/>
+
+</LinearLayout>

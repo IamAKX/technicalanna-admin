@@ -1,4 +1,4 @@
-package com.akashapplications.technicalannaadmin.MainMenu;
+package com.akashapplications.technicalannaadmin.MainMenu.ExamBanner;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

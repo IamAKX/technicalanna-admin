@@ -10,8 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.akashapplications.technicalannaadmin.MainMenu.ExamNotificationBanner;
-import com.akashapplications.technicalannaadmin.MainMenu.ToppersTip;
+import com.akashapplications.technicalannaadmin.MainMenu.Booster.Booster;
+import com.akashapplications.technicalannaadmin.MainMenu.ExamBanner.ExamNotificationBanner;
+import com.akashapplications.technicalannaadmin.MainMenu.ToppersTip.ToppersTip;
 import com.akashapplications.technicalannaadmin.Utils.MainMenuItem;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
 
             case 2:
-                Toast.makeText(context,listview.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(context, Booster.class).putExtra("title",listview.getItemAtPosition(position).toString()));
                 break;
 
             case 3:

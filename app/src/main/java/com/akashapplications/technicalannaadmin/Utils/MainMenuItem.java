@@ -6,8 +6,9 @@ public class MainMenuItem {
         String menu[] = {
                 "Exam Notification Banner",
                 "Topper's Tips",
-                "Update Subject Content",
-                "Create Exams"
+                "Booster",
+                "Subject-wise Exams",
+                "Full-length Exams"
         };
         return menu;
     }
