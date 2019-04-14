@@ -1,6 +1,8 @@
 package com.akashapplications.technicalannaadmin.Models;
 
-public class BoosterModel {
+import java.io.Serializable;
+
+public class BoosterModel implements Serializable {
     String name,content,type,id;
 
     public String getName() {

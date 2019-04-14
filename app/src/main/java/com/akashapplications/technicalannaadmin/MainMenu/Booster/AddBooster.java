@@ -15,9 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.akashapplications.technicalannaadmin.Models.BoosterModel;
 import com.akashapplications.technicalannaadmin.R;
 import com.akashapplications.technicalannaadmin.Utils.API;
 import com.akashapplications.technicalannaadmin.Utils.RequestQueueSingleton;
@@ -54,7 +56,7 @@ public class AddBooster extends Activity {
 
     MaterialEditText name, content;
     Spinner type;
-
+    Button save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,12 +99,35 @@ public class AddBooster extends Activity {
             }
         });
 
-        findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
+        save = findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new SaveBooster().execute();
             }
         });
+
+        if(getIntent().hasExtra("model"))
+            setDataFromIntent();
+    }
+
+    private void setDataFromIntent() {
+        BoosterModel m = (BoosterModel) getIntent().getSerializableExtra("model");
+        name.setText(m.getName());
+        name.setEnabled(false);
+
+        content.setText(m.getContent());
+        content.setEnabled(false);
+
+        type.setOnItemSelectedListener(null);
+
+        if(m.getType().equalsIgnoreCase("Text"))
+            type.setSelection(0);
+        else
+            type.setSelection(1);
+        type.setEnabled(false);
+
+        save.setVisibility(View.GONE);
     }
 
     private void triggerImagePicker(View v) {

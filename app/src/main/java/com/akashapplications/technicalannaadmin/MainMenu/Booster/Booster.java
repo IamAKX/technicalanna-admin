@@ -67,7 +67,7 @@ public class Booster extends AppCompatActivity implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        startActivity(new Intent(getBaseContext(),AddBooster.class).putExtra("model",list.get(position)));
     }
 
     @Override
@@ -82,7 +82,9 @@ public class Booster extends AppCompatActivity implements AdapterView.OnItemClic
     public boolean onContextItemSelected(MenuItem item){
         if(item.getItemId() == R.id.delete)
         {
-            Log.e("checking","delete");
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            new DeleteBooster(info.position).execute();
+
         }
         return true;
     }
@@ -152,5 +154,64 @@ public class Booster extends AppCompatActivity implements AdapterView.OnItemClic
             progressBar.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    private class DeleteBooster extends AsyncTask<Void,Void,Void>{
+        int index;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        public DeleteBooster(int index) {
+            this.index = index;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            JSONObject reqBody = new JSONObject();
+            try {
+                reqBody.put("id",list.get(index).getId());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.BOOSTER_DELETE, reqBody,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            if (progressBar.getVisibility() == View.VISIBLE)
+                                progressBar.setVisibility(View.GONE);
+                            Log.e("checking",response.toString());
+                            Toast.makeText(getBaseContext(),list.get(index).getName()+" Deleted successfully",Toast.LENGTH_SHORT).show();
+                            list.remove(index);
+                            new GetAllBoosters().execute();
+
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if (progressBar.getVisibility() == View.VISIBLE)
+                        progressBar.setVisibility(View.GONE);
+                    NetworkResponse networkResponse = error.networkResponse;
+                    Toast.makeText(getBaseContext(), "Registration failed " + new String(networkResponse.data), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            jsonObjectRequest.setShouldCache(false);
+            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    0,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+            ));
+            RequestQueue requestQueue = RequestQueueSingleton.getInstance(getBaseContext())
+                    .getRequestQueue();
+            requestQueue.getCache().clear();
+            requestQueue.add(jsonObjectRequest);
+
+            return null;
+        }
     }
 }
