@@ -1,11 +1,15 @@
 package com.akashapplications.technicalannaadmin.MainMenu.Booster;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,9 +34,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.nguyenhoanglam.imagepicker.model.Config;
-import com.nguyenhoanglam.imagepicker.model.Image;
-import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
@@ -41,12 +47,13 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class AddBooster extends Activity {
 
     MaterialEditText name, content;
     Spinner type;
-    private ArrayList<Image> imageList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,15 @@ public class AddBooster extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, typeArr);
         type.setAdapter(adapter);
 
+
+        Dexter.withActivity(this)
+                .withPermissions(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */}
+            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+        }).check();
 
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -81,41 +97,40 @@ public class AddBooster extends Activity {
             }
         });
 
+        findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SaveBooster().execute();
+            }
+        });
     }
 
     private void triggerImagePicker(View v) {
-        ImagePicker.with(this)                         //  Initialize ImagePicker with activity or fragment context
-                .setToolbarColor("#ffffff")         //  Toolbar color
-                .setStatusBarColor("#fafafa")       //  StatusBar color (works with SDK >= 21  )
-                .setToolbarTextColor("#212121")     //  Toolbar text color (Title and Done button)
-                .setToolbarIconColor("#212121")     //  Toolbar icon color (Back and Camera button)
-                .setProgressBarColor("#F1465A")     //  ProgressBar color
-                .setBackgroundColor("#FAFAFA")      //  Background color
-                .setCameraOnly(false)               //  Camera mode
-                .setMultipleMode(false)              //  Select multiple images or single image
-                .setFolderMode(true)                //  Folder mode
-                .setShowCamera(true)                //  Show camera button
-                .setFolderTitle("Albums")           //  Folder title (works with FolderMode = true)
-                .setImageTitle("Galleries")         //  Image title (works with FolderMode = false)
-                .setDoneTitle("Done")               //  Done button title
-                .setLimitMessage("You have reached selection limit")    // Selection limit message
-                .setMaxSize(1)                     //  Max images can be selected
-                .setSavePath("TechnicalAnnaCamera")         //  Image capture folder name
-                .setSelectedImages(imageList)          //  Selected images
-                .setAlwaysShowDoneButton(true)      //  Set always show done button in multiple mode
-                .setKeepScreenOn(true)              //  Keep screen on when selecting images
-                .start();                           //  Start Im
+//        Intent intent = new Intent(this, ImageSelectActivity.class);
+//        intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, false);//default is true
+//        intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true);//default is true
+//        intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true);//default is true
+//        startActivityForResult(intent, 1213);
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1213);
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Config.RC_PICK_IMAGES && resultCode == RESULT_OK && data != null) {
-            imageList = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
-            uploadBoosterImage(Uri.fromFile(new File(imageList.get(0).getPath())).toString());
+        if (requestCode == 1213 && resultCode == Activity.RESULT_OK && data!=null) {
+            String filePath = String.valueOf(data.getData());
+            uploadBoosterImage(filePath);
+            content.setText(filePath);
+            content.setEnabled(false);
         }
         else {
             type.setSelection(0);
+            content.setText("");
+            content.setEnabled(true);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -127,9 +142,8 @@ public class AddBooster extends Activity {
 
         final LovelyProgressDialog progressDialog = new LovelyProgressDialog(this)
                 .setIcon(R.drawable.upload)
-                .setTitle("Uploading your profile image")
+                .setTitle("Uploading your booster image")
                 .setCancelable(false)
-                .setMessage("Sit back and relax while we create your account")
                 .setTopColorRes(R.color.colorPrimary);
 
         progressDialog.show();
@@ -209,9 +223,8 @@ public class AddBooster extends Activity {
 
         LovelyProgressDialog progressDialog = new LovelyProgressDialog(AddBooster.this)
                 .setIcon(android.R.drawable.ic_menu_save)
-                .setTitle("Uploading your profile image")
+                .setTitle("Saving")
                 .setCancelable(false)
-                .setMessage("Sit back and relax while we create your account")
                 .setTopColorRes(R.color.colorPrimary);
 
         @Override
@@ -230,10 +243,12 @@ public class AddBooster extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.ALL_BOOSTER, reqBody,
+            Log.e("checking",reqBody.toString());
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.BOOSTER_ADD, reqBody,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            Log.e("checking",response.toString());
                             progressDialog.dismiss();
                             Toast.makeText(getBaseContext(),"Booster Saved",Toast.LENGTH_SHORT).show();
                             finish();
@@ -261,3 +276,4 @@ public class AddBooster extends Activity {
         }
     }
 }
+

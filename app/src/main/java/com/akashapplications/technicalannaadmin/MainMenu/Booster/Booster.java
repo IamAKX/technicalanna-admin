@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +20,6 @@ import android.widget.Toast;
 import com.akashapplications.technicalannaadmin.Models.BoosterModel;
 import com.akashapplications.technicalannaadmin.R;
 import com.akashapplications.technicalannaadmin.Utils.API;
-import com.akashapplications.technicalannaadmin.Utils.MainMenuItem;
 import com.akashapplications.technicalannaadmin.Utils.RequestQueueSingleton;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -53,7 +54,7 @@ public class Booster extends AppCompatActivity implements AdapterView.OnItemClic
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),AddBooster.class));
+                startActivity(new Intent(getBaseContext(), AddBooster.class));
             }
         });
     }
@@ -67,6 +68,23 @@ public class Booster extends AppCompatActivity implements AdapterView.OnItemClic
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId()==R.id.listview) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.delete, menu);
+        }
+    }
+
+    public boolean onContextItemSelected(MenuItem item){
+        if(item.getItemId() == R.id.delete)
+        {
+            Log.e("checking","delete");
+        }
+        return true;
     }
 
     private class GetAllBoosters extends AsyncTask<Void,Void,Void> {
@@ -102,6 +120,7 @@ public class Booster extends AppCompatActivity implements AdapterView.OnItemClic
                                     android.R.layout.simple_list_item_1, titleList);
                             listView.setAdapter(adapter);
                             listView.setOnItemClickListener(Booster.this);
+                            registerForContextMenu(listView);
 
                         }
                     }, new Response.ErrorListener() {
