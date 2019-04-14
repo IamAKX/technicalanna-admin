@@ -4,4 +4,7 @@
     <string name="title_activity_toppers_tip">Topper\'s Tip</string>
     <string name="title_activity_booster">Booster</string>
     <string name="title_activity_subject_exam">SubjectExam</string>
+    <string name="title_activity_all_exams">AllExams</string>
+    <string name="title_activity_all_notification">AllNotification</string>
+    <string name="title_activity_all_prev_ques_paper">AllPrevQuesPaper</string>
 </resources>

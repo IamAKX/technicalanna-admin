@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.akashapplications.technicalannaadmin.MainMenu.Booster.Booster;
 import com.akashapplications.technicalannaadmin.MainMenu.ExamBanner.ExamNotificationBanner;
+import com.akashapplications.technicalannaadmin.MainMenu.FullLengthExam.AllExamList;
+import com.akashapplications.technicalannaadmin.MainMenu.SubjectExam.AllSubjectList;
 import com.akashapplications.technicalannaadmin.MainMenu.ToppersTip.ToppersTip;
 import com.akashapplications.technicalannaadmin.Utils.MainMenuItem;
 
@@ -51,7 +53,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
 
             case 3:
-                Toast.makeText(context,listview.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(context, AllSubjectList.class).putExtra("title",listview.getItemAtPosition(position).toString()));
+                break;
+
+            case 4:
+                startActivity(new Intent(context, AllExamList.class).putExtra("title",listview.getItemAtPosition(position).toString()));
                 break;
         }
     }

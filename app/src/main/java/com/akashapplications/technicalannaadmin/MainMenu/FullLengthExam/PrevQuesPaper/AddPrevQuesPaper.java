@@ -1,28 +1,26 @@
-package com.akashapplications.technicalannaadmin.MainMenu.Booster;
+package com.akashapplications.technicalannaadmin.MainMenu.FullLengthExam.PrevQuesPaper;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.akashapplications.technicalannaadmin.Models.BoosterModel;
 import com.akashapplications.technicalannaadmin.R;
 import com.akashapplications.technicalannaadmin.Utils.API;
+import com.akashapplications.technicalannaadmin.Utils.GetLast30years;
 import com.akashapplications.technicalannaadmin.Utils.RequestQueueSingleton;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -31,18 +29,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.applandeo.FilePicker;
+import com.applandeo.constants.FileType;
+import com.applandeo.listeners.OnSelectFileListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
 import org.json.JSONException;
@@ -50,120 +45,67 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
+public class AddPrevQuesPaper extends Activity {
+    String subject = "";
+    Spinner spinner;
+    Button button;
+    TextView textView;
 
-public class AddBooster extends Activity {
-
-    MaterialEditText name, content;
-    Spinner type;
-    Button save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_booster);
+        setContentView(R.layout.activity_add_prev_ques_paper);
 
+        spinner = findViewById(R.id.spinner);
+        button = findViewById(R.id.button);
+        textView = findViewById(R.id.textview);
+        subject = getIntent().getStringExtra("subject");
+//        getSupportActionBar().setTitle(subject);
+        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, GetLast30years.getYears());
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinner.setAdapter(aa);
 
-        name = findViewById(R.id.name);
-        content = findViewById(R.id.content);
-        type = findViewById(R.id.spinner);
-
-        String typeArr[] = { "Text", "Image"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, typeArr);
-        type.setAdapter(adapter);
-
-
-        Dexter.withActivity(this)
-                .withPermissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                ).withListener(new MultiplePermissionsListener() {
-            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */}
-            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
-        }).check();
-
-        type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 1)
-                {
-                    triggerImagePicker(view);              //
-                }
-                else {
-                    content.setEnabled(true);
-                    content.setText("");
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onClick(View v) {
+                triggerFileChooser();
             }
         });
 
-        save = findViewById(R.id.save);
-        save.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new SaveBooster().execute();
+
             }
         });
-
-        if(getIntent().hasExtra("model"))
-            setDataFromIntent();
     }
 
-    private void setDataFromIntent() {
-        BoosterModel m = (BoosterModel) getIntent().getSerializableExtra("model");
-        name.setText(m.getName());
-        name.setEnabled(false);
+    private void triggerFileChooser() {
+        Intent intentPDF = new Intent(Intent.ACTION_GET_CONTENT);
+        intentPDF.setType("application/pdf");
+        intentPDF.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(Intent.createChooser(intentPDF,"ChooseFile"), 123);
 
-        content.setText(m.getContent());
-        content.setEnabled(false);
-
-        type.setOnItemSelectedListener(null);
-
-        if(m.getType().equalsIgnoreCase("Text"))
-            type.setSelection(0);
-        else
-            type.setSelection(1);
-        type.setEnabled(false);
-
-        save.setVisibility(View.GONE);
     }
-
-    private void triggerImagePicker(View v) {
-//        Intent intent = new Intent(this, ImageSelectActivity.class);
-//        intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, false);//default is true
-//        intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true);//default is true
-//        intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true);//default is true
-//        startActivityForResult(intent, 1213);
-
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1213);
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1213 && resultCode == Activity.RESULT_OK && data!=null) {
+        if (requestCode == 123 && resultCode == Activity.RESULT_OK && data!=null) {
             String filePath = String.valueOf(data.getData());
-            uploadBoosterImage(filePath);
-            content.setText(filePath);
-            content.setEnabled(false);
+            textView.setText(filePath);
+            uploadQPaper(filePath);
         }
         else {
-            type.setSelection(0);
-            content.setText("");
-            content.setEnabled(true);
+            
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void uploadBoosterImage(String image) {
+    private void uploadQPaper(String image) {
         if (image == "")
             return;
 
@@ -188,8 +130,8 @@ public class AddBooster extends Activity {
                         profRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                content.setText(uri.toString());
-                                content.setEnabled(false);
+                                textView.setText(uri.toString());
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -221,7 +163,6 @@ public class AddBooster extends Activity {
 
                     }
                 });
-
     }
 
 
@@ -248,7 +189,7 @@ public class AddBooster extends Activity {
 
     private class SaveBooster extends AsyncTask<Void,Void,Void> {
 
-        LovelyProgressDialog progressDialog = new LovelyProgressDialog(AddBooster.this)
+        LovelyProgressDialog progressDialog = new LovelyProgressDialog(AddPrevQuesPaper.this)
                 .setIcon(android.R.drawable.ic_menu_save)
                 .setTitle("Saving")
                 .setCancelable(false)
@@ -264,20 +205,23 @@ public class AddBooster extends Activity {
         protected Void doInBackground(Void... voids) {
             JSONObject reqBody = new JSONObject();
             try {
-                reqBody.put("name",name.getText().toString());
-                reqBody.put("type",type.getSelectedItem().toString());
-                reqBody.put("content",content.getText().toString());
+                reqBody.put("subject",subject);
+                reqBody.put("name","previousQuestionPaper");
+                JSONObject newObj = new JSONObject();
+                newObj.put("year", Integer.parseInt(spinner.getSelectedItem().toString()));
+                newObj.put("link", textView.getText().toString());
+                reqBody.put("previousQuestionPaper",newObj);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             Log.e("checking",reqBody.toString());
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.BOOSTER_ADD, reqBody,
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.FULL_EXAM_ADD_PREV_QUES_PAPER, reqBody,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.e("checking",response.toString());
                             progressDialog.dismiss();
-                            Toast.makeText(getBaseContext(),"Booster Saved",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(),"Q Paper Saved",Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }, new Response.ErrorListener() {
@@ -303,4 +247,5 @@ public class AddBooster extends Activity {
         }
     }
 }
+
 

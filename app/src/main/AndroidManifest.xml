@@ -16,8 +16,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".MainMenu.FullLengthExam.PrevQuesPaper.AddPrevQuesPaper"></activity>
+        <activity
+            android:name=".MainMenu.FullLengthExam.PrevQuesPaper.AllPrevQuesPaper"
+            android:label="@string/title_activity_all_prev_ques_paper"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainMenu.FullLengthExam.Syllabus.AddSyllabus" />
+        <activity android:name=".MainMenu.FullLengthExam.Notifications.AddExamNotification" />
+        <activity
+            android:name=".MainMenu.FullLengthExam.Notifications.AllNotification"
+            android:label="@string/title_activity_all_notification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainMenu.FullLengthExam.Exams.AddFullLengthExam" />
+        <activity
+            android:name=".MainMenu.FullLengthExam.Exams.AllExams"
+            android:label="@string/title_activity_all_exams"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainMenu.FullLengthExam.ExamMenu" />
+        <activity android:name=".MainMenu.FullLengthExam.AllExamList" />
+        <activity android:name=".MainMenu.SubjectExam.AddExam" />
+        <activity android:name=".MainMenu.SubjectExam.AllSubjectList" />
         <activity android:name=".MainMenu.Booster.AddBooster" />
-        <activity android:name=".MainMenu.SubjectExam.AddSubjectExam" />
         <activity
             android:name=".MainMenu.SubjectExam.SubjectExam"
             android:label="@string/title_activity_subject_exam"
@@ -46,6 +65,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

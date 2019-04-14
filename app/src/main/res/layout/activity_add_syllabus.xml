@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainMenu.SubjectExam.SubjectExam"
-    tools:showIn="@layout/activity_subject_exam">
+    tools:context=".MainMenu.FullLengthExam.Syllabus.AddSyllabus">
 
-    <ListView
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listview"></ListView>
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="Syllabus link"
+        android:imeOptions="actionDone"
+        android:padding="5dp"
+        android:textSize="15sp"
+        app:met_clearButton="true"
+        app:met_floatingLabel="normal"
+        app:met_floatingLabelAnimating="true"
+        app:met_helperTextAlwaysShown="false" />
 
     <ProgressBar
         android:visibility="gone"

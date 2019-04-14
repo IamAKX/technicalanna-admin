@@ -1,4 +1,4 @@
-package com.akashapplications.technicalannaadmin.MainMenu.SubjectExam;
+package com.akashapplications.technicalannaadmin.MainMenu.FullLengthExam.Exams;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.akashapplications.technicalannaadmin.MainMenu.Booster.Booster;
+import com.akashapplications.technicalannaadmin.MainMenu.SubjectExam.AddExam;
 import com.akashapplications.technicalannaadmin.Models.QuizModel;
 import com.akashapplications.technicalannaadmin.Models.SubjectExamModel;
 import com.akashapplications.technicalannaadmin.R;
@@ -38,22 +38,23 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class SubjectExam extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class AllExams extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     ListView listView;
     ProgressBar progressBar;
     static String subject = "null";
     ArrayList<SubjectExamModel> list = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subject_exam);
+        setContentView(R.layout.activity_all_exams);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if(getIntent().hasExtra("title"))
-        subject = getIntent().getStringExtra("title");
+            subject = getIntent().getStringExtra("title");
         getSupportActionBar().setTitle(subject);
         listView = findViewById(R.id.listview);
         progressBar = findViewById(R.id.progressbar);
@@ -62,9 +63,10 @@ public class SubjectExam extends AppCompatActivity implements AdapterView.OnItem
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(getBaseContext(),AddExam.class).putExtra("subject",subject));
+                startActivity(new Intent(getBaseContext(), AddFullLengthExam.class).putExtra("subject",subject));
             }
         });
+
     }
 
     @Override
@@ -88,7 +90,7 @@ public class SubjectExam extends AppCompatActivity implements AdapterView.OnItem
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.ALL_SUBJECT_EXAM, reqBody,
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.ALL_FULL_EXAM, reqBody,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -99,7 +101,7 @@ public class SubjectExam extends AppCompatActivity implements AdapterView.OnItem
                             try {
                                 JSONArray arr = response.getJSONArray("examList");
                                 if(arr.length() == 0)
-                                    Toast.makeText(getBaseContext(),"No Exam added", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getBaseContext(),"No Exams added", Toast.LENGTH_SHORT).show();
                                 list.clear();
                                 for (int i=0; i<arr.length(); i++)
                                 {
@@ -141,10 +143,10 @@ public class SubjectExam extends AppCompatActivity implements AdapterView.OnItem
                                 e.printStackTrace();
                             }
 
-                            ArrayAdapter adapter = new ArrayAdapter<String>(SubjectExam.this,
+                            ArrayAdapter adapter = new ArrayAdapter<String>(AllExams.this,
                                     android.R.layout.simple_list_item_1, titleList);
                             listView.setAdapter(adapter);
-                            listView.setOnItemClickListener(SubjectExam.this);
+                            listView.setOnItemClickListener(AllExams.this);
                             registerForContextMenu(listView);
 
                         }
@@ -220,7 +222,7 @@ public class SubjectExam extends AppCompatActivity implements AdapterView.OnItem
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.SUBJECT_EXAM_DELETE, reqBody,
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, API.FULL_EXAM_DELETE, reqBody,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -258,3 +260,4 @@ public class SubjectExam extends AppCompatActivity implements AdapterView.OnItem
         }
     }
 }
+

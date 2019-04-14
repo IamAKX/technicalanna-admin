@@ -23,8 +23,9 @@ public class API {
     public static final String FULL_EXAM_ADD = BASE_URL + "fullLengthExamsApp/v1/fullexam/add";
     public static final String FULL_EXAM_EXAM_DETAIL = BASE_URL + "fullLengthExamsApp/v1/fullexam/getExamDetails";
     public static final String FULL_EXAM_DELETE = BASE_URL + "fullLengthExamsApp/v1/fullexam/delete";
-    public static final String ALL_FULL_EXAM_ADD = BASE_URL + "fullLengthExamsApp/v1/fullexam/getAllExams";
+    public static final String ALL_FULL_EXAM = BASE_URL + "fullLengthExamsApp/v1/fullexam/getAllExams";
     public static final String FULL_EXAM_CHECK_SUBSCRIBTION = BASE_URL + "fullLengthExamsApp/v1/fullexam/checkSubscribtion";
     public static final String FULL_EXAM_ADD_SUBSCRIBTION = BASE_URL + "fullLengthExamsApp/v1/fullexam/addSubscribtion";
+    public static final String FULL_EXAM_GET_DETAIL_BY_NAME = BASE_URL + "fullLengthExamsApp/v1/fullexam/fetchDataByName";
 
 }

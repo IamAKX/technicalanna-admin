@@ -57,6 +57,8 @@ public class Booster extends AppCompatActivity implements AdapterView.OnItemClic
                 startActivity(new Intent(getBaseContext(), AddBooster.class));
             }
         });
+
+
     }
 
     @Override
@@ -103,6 +105,8 @@ public class Booster extends AppCompatActivity implements AdapterView.OnItemClic
                             Log.e("checking", response.toString());
                             try {
                                 JSONArray arr = response.getJSONArray("boosterList");
+                                if(arr.length() == 0)
+                                    Toast.makeText(getBaseContext(),"No Booster added", Toast.LENGTH_SHORT).show();
                                 list.clear();
                                 for (int i=0; i<arr.length(); i++)
                                 {

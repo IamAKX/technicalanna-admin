@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainMenu.SubjectExam.AddExam">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Exam Name"
+        app:met_clearButton="true"
+        android:textSize="15sp"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:imeOptions="actionNext"
+        app:met_helperTextAlwaysShown="true"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabel="normal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_weight="1"
+            android:id="@+id/marks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Marks"
+            app:met_clearButton="true"
+            android:textSize="15sp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            app:met_helperTextAlwaysShown="true"
+            app:met_floatingLabelAnimating="true"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_weight="1"
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Time(mins)"
+            app:met_clearButton="true"
+            android:textSize="15sp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            app:met_helperTextAlwaysShown="true"
+            app:met_floatingLabelAnimating="true"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_weight="1"
+            android:id="@+id/fees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fee(Rs)"
+            app:met_clearButton="true"
+            android:textSize="15sp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            app:met_helperTextAlwaysShown="true"
+            app:met_floatingLabelAnimating="true"
+            app:met_floatingLabel="normal"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/questionNo"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question 0"/>
+
+    <TextView
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#cdcdcd"
+        android:text="Add Exam question here. Tap add button to add your question for exam"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:background="#efefef"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="Question"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:met_clearButton="true"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelAnimating="true"
+                app:met_helperTextAlwaysShown="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/option1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="option 1"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:met_clearButton="true"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelAnimating="true"
+                app:met_helperTextAlwaysShown="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/option2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="option 2"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:met_clearButton="true"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelAnimating="true"
+                app:met_helperTextAlwaysShown="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/option3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="option 3"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:met_clearButton="true"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelAnimating="true"
+                app:met_helperTextAlwaysShown="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/option4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="option 4"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:met_clearButton="true"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelAnimating="true"
+                app:met_helperTextAlwaysShown="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/correctoption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="Correct Option number"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:textSize="15sp"
+                android:inputType="number"
+                app:met_clearButton="true"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelAnimating="true"
+                app:met_helperTextAlwaysShown="true" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ADD"
+                android:id="@+id/add"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
