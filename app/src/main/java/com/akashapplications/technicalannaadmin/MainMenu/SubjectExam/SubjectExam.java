@@ -105,13 +105,15 @@ public class SubjectExam extends AppCompatActivity implements AdapterView.OnItem
                                 {
                                     SubjectExamModel m = new SubjectExamModel();
                                     JSONObject object = arr.getJSONObject(i);
-
+                                    if(!object.has("name"))
+                                        continue;
+                                    m.setName(object.getString("name"));
                                     m.setFees(0);
-                                    m.setTimeAlloted(object.getInt("time_alloted"));
                                     m.setSubject(object.getString("subject"));
                                     m.setFullMarks(0);
-                                    m.setName(object.getString("name"));
                                     m.setId(object.getString("id"));
+
+                                    m.setTimeAlloted(object.getInt("time_alloted"));
 
                                     ArrayList<QuizModel> qm = new ArrayList<>();
 
