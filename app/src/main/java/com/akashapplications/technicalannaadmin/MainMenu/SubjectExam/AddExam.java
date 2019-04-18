@@ -32,7 +32,7 @@ import org.json.JSONObject;
 
 public class AddExam extends AppCompatActivity {
     String subject = "";
-    MaterialEditText name, fullMarks, time, fees, question, option1, option2, option3, option4, correctOption;
+    MaterialEditText name, fullMarks, time, fees, question, option1, option2, option3, option4, correctOption,solution, negmark;
     Button add;
     TextView questionCount;
 
@@ -58,6 +58,8 @@ public class AddExam extends AppCompatActivity {
         option2 = findViewById(R.id.option2);
         option3 = findViewById(R.id.option3);
         option4 = findViewById(R.id.option4);
+        negmark = findViewById(R.id.negmark);
+        solution = findViewById(R.id.soln);
         correctOption = findViewById(R.id.correctoption);
         add = findViewById(R.id.add);
         questionCount = findViewById(R.id.questionNo);
@@ -84,6 +86,7 @@ public class AddExam extends AppCompatActivity {
             arr.put(2,option3.getText().toString());
             arr.put(3,option4.getText().toString());
             object.put("answer",arr);
+            object.put("solution",solution.getText().toString());
             object.put("correct", Integer.parseInt(correctOption.getText().toString()));
             quizArray.put(object);
             questionCount.setText("Question Count : "+quizArray.length());
@@ -92,6 +95,7 @@ public class AddExam extends AppCompatActivity {
             option2.setText("");
             option3.setText("");
             option4.setText("");
+            solution.setText("");
             correctOption.setText("");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -143,6 +147,7 @@ public class AddExam extends AppCompatActivity {
                 reqBody.put("time_alloted",Integer.parseInt(time.getText().toString()));
                 reqBody.put("full_marks",Integer.parseInt(fullMarks.getText().toString()));
                 reqBody.put("quiz",quizArray);
+                reqBody.put("negmark",Double.parseDouble(negmark.getText().toString()));
                 reqBody.put("fees",Integer.parseInt(fees.getText().toString()));
                 reqBody.put("registered_user",new JSONArray());
             } catch (JSONException e) {

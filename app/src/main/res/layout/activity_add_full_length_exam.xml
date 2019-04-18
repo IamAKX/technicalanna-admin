@@ -79,6 +79,24 @@
 
     </LinearLayout>
 
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/negmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Negative marking (Eg: 0.3)"
+        app:met_clearButton="true"
+        android:inputType="numberDecimal"
+        android:textSize="15sp"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:imeOptions="actionNext"
+        app:met_helperTextAlwaysShown="true"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabel="normal"/>
+
+
+
     <TextView
         android:id="@+id/questionNo"
         android:padding="10dp"
@@ -100,6 +118,7 @@
         android:scrollbars="none">
 
         <LinearLayout
+            android:padding="5dp"
             android:background="#efefef"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -109,9 +128,7 @@
                 android:id="@+id/question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="Question"
-                android:imeOptions="actionNext"
                 android:padding="5dp"
                 android:textSize="15sp"
                 app:met_clearButton="true"
@@ -123,7 +140,6 @@
                 android:id="@+id/option1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="option 1"
                 android:imeOptions="actionNext"
                 android:padding="5dp"
@@ -137,7 +153,6 @@
                 android:id="@+id/option2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="option 2"
                 android:imeOptions="actionNext"
                 android:padding="5dp"
@@ -151,7 +166,6 @@
                 android:id="@+id/option3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="option 3"
                 android:imeOptions="actionNext"
                 android:padding="5dp"
@@ -165,7 +179,6 @@
                 android:id="@+id/option4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="option 4"
                 android:imeOptions="actionNext"
                 android:padding="5dp"
@@ -179,7 +192,6 @@
                 android:id="@+id/correctoption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:hint="Correct Option number"
                 android:imeOptions="actionNext"
                 android:padding="5dp"
@@ -190,6 +202,18 @@
                 app:met_floatingLabelAnimating="true"
                 app:met_helperTextAlwaysShown="true" />
 
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/soln"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Solution Explaintion"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:met_clearButton="true"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelAnimating="true"
+                app:met_helperTextAlwaysShown="true" />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
