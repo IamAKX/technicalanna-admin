@@ -27,12 +27,13 @@ import org.json.JSONObject;
 
 public class AddExamNotification extends AppCompatActivity {
     String subject = "";
-    MaterialEditText text;
+    MaterialEditText text,link;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_exam_notification);
         text = findViewById(R.id.text);
+        link = findViewById(R.id.link);
         subject = getIntent().getStringExtra("subject");
         getSupportActionBar().setTitle(subject);
     }
@@ -75,10 +76,13 @@ public class AddExamNotification extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             JSONObject reqBody = new JSONObject();
+            JSONObject noti = new JSONObject();
             try {
                 reqBody.put("subject",subject);
                 reqBody.put("name","notification");
-                reqBody.put("notification",text.getText().toString());
+                noti.put("text",text.getText().toString());
+                noti.put("link",link.getText().toString());
+                reqBody.put("notification",noti);
 
             } catch (JSONException e) {
                 e.printStackTrace();

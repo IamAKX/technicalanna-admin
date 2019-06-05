@@ -66,7 +66,7 @@ public class AddExam extends AppCompatActivity {
         questionCount.setText("Question Count : 0");
 
         fees.setText("0");
-        fees.setEnabled(false);
+        fees.setEnabled(true);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
